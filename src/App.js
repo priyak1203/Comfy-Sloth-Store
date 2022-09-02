@@ -5,9 +5,9 @@ import { About, Cart, Error, Home, Products, SingleProduct } from './pages';
 function App() {
   return (
     <>
-      <Navbar />
-      <Sidebar />
       <Router>
+        <Navbar />
+        <Sidebar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
