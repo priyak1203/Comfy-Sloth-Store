@@ -69,7 +69,9 @@ const Wrapper = styled.nav`
   .nav-links {
     display: none;
   }
-  /* hide cart buttons  */
+  .cart-btn-wrapper {
+    display: none;
+  }
   @media (min-width: 992px) {
     .nav-toggle {
       display: none;
@@ -96,7 +98,9 @@ const Wrapper = styled.nav`
         }
       }
     }
-    /* show cart buttons */
+    .cart-btn-wrapper {
+      display: grid;
+    }
   }
 `;
 

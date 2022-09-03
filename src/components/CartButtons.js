@@ -6,7 +6,7 @@ const CartButtons = () => {
   const myUser = false;
 
   return (
-    <Wrapper>
+    <Wrapper className="cart-btn-wrapper">
       <Link to="/cart" className="cart-btn">
         cart
         <span className="cart-container">
