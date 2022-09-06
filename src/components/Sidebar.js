@@ -8,7 +8,7 @@ import { useProductsContext } from '../context/products_context';
 
 const Sidebar = () => {
   const { isSidebarOpen, closeSidebar } = useProductsContext();
-
+  const myUser = true;
   return (
     <Wrapper>
       <aside
@@ -30,6 +30,13 @@ const Sidebar = () => {
               </li>
             );
           })}
+          {myUser && (
+            <li>
+              <Link to="/checkout" onClick={closeSidebar}>
+                checkout
+              </Link>
+            </li>
+          )}
         </ul>
         <CartButtons />
       </aside>
