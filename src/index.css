@@ -8,6 +8,7 @@
   /* primary/main color */
   --clr-primary-5: hsl(22, 31%, 52%);
   --clr-primary-7: hsl(22, 31%, 67%);
+  --clr-primary-9: hsl(22, 31%, 81%);
   --clr-primary-10: hsl(22, 31%, 88%);
   /* darkest grey - used for headings */
   --clr-grey-1: hsl(209, 61%, 16%);
@@ -31,7 +32,8 @@
 /* ===============================
           Global Styles
 ================================== */
-* {
+*,
+::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
