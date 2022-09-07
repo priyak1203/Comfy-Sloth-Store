@@ -1,9 +1,12 @@
-import { Hero } from '../components';
+import { Contact, FeaturedProducts, Hero, Services } from '../components';
 
 const HomePage = () => {
   return (
     <main>
       <Hero />
+      <FeaturedProducts />
+      <Services />
+      <Contact />
     </main>
   );
 };
