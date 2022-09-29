@@ -45,7 +45,7 @@ const SingleProductPage = () => {
     return <Error />;
   }
 
-  const { name, price, description, stock, id: sku, company } = product;
+  const { name, price, description, stock, id: sku, company, images } = product;
 
   return (
     <Wrapper>
@@ -55,7 +55,7 @@ const SingleProductPage = () => {
           back to products
         </Link>
         <div className="product-center">
-          <ProductImages />
+          <ProductImages images={images} />
           <section className="content">
             <h2>{name}</h2>
             <Stars />
