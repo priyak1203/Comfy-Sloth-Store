@@ -2,65 +2,24 @@ import styled from 'styled-components';
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 
 const Stars = ({ reviews, stars }) => {
+  const tempStars = Array.from({ length: 5 }, (_, index) => {
+    const number = index + 0.5;
+    return (
+      <span key={index}>
+        {stars >= index + 1 ? (
+          <BsStarFill />
+        ) : stars >= number ? (
+          <BsStarHalf />
+        ) : (
+          <BsStar />
+        )}
+      </span>
+    );
+  });
+
   return (
     <Wrapper>
-      <div>
-        {/* start of star */}
-        <span>
-          {stars >= 1 ? (
-            <BsStarFill />
-          ) : stars >= 0.5 ? (
-            <BsStarHalf />
-          ) : (
-            <BsStar />
-          )}
-        </span>
-        {/* end of star */}
-        {/* start of star */}
-        <span>
-          {stars >= 2 ? (
-            <BsStarFill />
-          ) : stars >= 1.5 ? (
-            <BsStarHalf />
-          ) : (
-            <BsStar />
-          )}
-        </span>
-        {/* end of star */}
-        {/* start of star */}
-        <span>
-          {stars >= 3 ? (
-            <BsStarFill />
-          ) : stars >= 2.5 ? (
-            <BsStarHalf />
-          ) : (
-            <BsStar />
-          )}
-        </span>
-        {/* end of star */}
-        {/* start of star */}
-        <span>
-          {stars >= 4 ? (
-            <BsStarFill />
-          ) : stars >= 3.5 ? (
-            <BsStarHalf />
-          ) : (
-            <BsStar />
-          )}
-        </span>
-        {/* end of star */}
-        {/* start of star */}
-        <span>
-          {stars === 5 ? (
-            <BsStarFill />
-          ) : stars >= 4.5 ? (
-            <BsStarHalf />
-          ) : (
-            <BsStar />
-          )}
-        </span>
-        {/* end of star */}
-      </div>
+      <div>{tempStars}</div>
       <p>({reviews} customer reviews)</p>
     </Wrapper>
   );
