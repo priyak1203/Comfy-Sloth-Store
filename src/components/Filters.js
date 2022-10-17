@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import { FaCheck } from 'react-icons/fa';
 import { useFilterContext } from '../context/filter_context';
 import { getUniqueValues } from '../utils/helpers';
 
 const Filters = () => {
   const {
-    filters: { text, category, company },
+    filters: { text, category, company, color },
     all_products,
     updateFilters,
   } = useFilterContext();
@@ -68,6 +69,46 @@ const Filters = () => {
             </select>
           </div>
           {/* companies end */}
+          {/* colors start */}
+          <div className="form-control">
+            <h5>colors</h5>
+            <div className="colors">
+              {colors.map((c, index) => {
+                if (c === 'all') {
+                  return (
+                    <button
+                      key={index}
+                      type="button"
+                      name="color"
+                      onClick={updateFilters}
+                      data-color="all"
+                      className={`${
+                        c === color ? 'all-btn active' : 'all-btn'
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  );
+                }
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    name="color"
+                    onClick={updateFilters}
+                    style={{ background: c }}
+                    data-color={c}
+                    className={`${
+                      c === color ? 'color-btn active' : 'color-btn'
+                    }`}
+                  >
+                    {c === color ? <FaCheck /> : null}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          {/* colors end */}
         </form>
       </div>
     </Wrapper>
@@ -117,6 +158,41 @@ const Wrapper = styled.section`
     border-radius: var(--radius);
     border-color: transparent;
     padding: 0.25rem;
+  }
+  .colors {
+    display: flex;
+    align-items: center;
+  }
+
+  .color-btn {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: #222;
+    margin-right: 0.5rem;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      font-size: 0.5rem;
+      color: var(--clr-white);
+    }
+  }
+
+  .all-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
+    opacity: 0.5;
+  }
+
+  .active {
+    opacity: 1;
   }
 `;
 
