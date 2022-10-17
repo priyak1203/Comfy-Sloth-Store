@@ -4,7 +4,7 @@ import { getUniqueValues } from '../utils/helpers';
 
 const Filters = () => {
   const {
-    filters: { text },
+    filters: { text, category },
     all_products,
     updateFilters,
   } = useFilterContext();
@@ -29,6 +29,26 @@ const Filters = () => {
             />
           </div>
           {/* search input end */}
+          {/* categories start */}
+          <div className="form-control">
+            <h5>category</h5>
+            <div>
+              {categories.map((c, index) => {
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    name="category"
+                    onClick={updateFilters}
+                    className={`${c === category ? 'active' : null}`}
+                  >
+                    {c}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          {/* categories end */}
         </form>
       </div>
     </Wrapper>
@@ -38,6 +58,9 @@ const Filters = () => {
 const Wrapper = styled.section`
   .form-control {
     margin-bottom: 1.25rem;
+    h5 {
+      margin-bottom: 0.5rem;
+    }
   }
 
   .search-input {
@@ -51,6 +74,23 @@ const Wrapper = styled.section`
 
   .search-input::placeholder {
     text-transform: capitalize;
+  }
+
+  button {
+    display: block;
+    margin: 0.25em 0;
+    padding: 0.25rem 0;
+    text-transform: capitalize;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    letter-spacing: var(--spacing);
+    color: var(--clr-grey-5);
+    cursor: pointer;
+  }
+
+  .active {
+    border-color: var(--clr-grey-5);
   }
 `;
 
