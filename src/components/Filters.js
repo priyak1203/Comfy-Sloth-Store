@@ -4,7 +4,7 @@ import { getUniqueValues } from '../utils/helpers';
 
 const Filters = () => {
   const {
-    filters: { text, category },
+    filters: { text, category, company },
     all_products,
     updateFilters,
   } = useFilterContext();
@@ -49,6 +49,25 @@ const Filters = () => {
             </div>
           </div>
           {/* categories end */}
+          {/* companies start */}
+          <div className="form-control">
+            <h5>company</h5>
+            <select
+              name="company"
+              className="company"
+              value={company}
+              onChange={updateFilters}
+            >
+              {companies.map((c, index) => {
+                return (
+                  <option key={index} value={c}>
+                    {c}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          {/* companies end */}
         </form>
       </div>
     </Wrapper>
@@ -91,6 +110,13 @@ const Wrapper = styled.section`
 
   .active {
     border-color: var(--clr-grey-5);
+  }
+
+  .company {
+    background: var(--clr-grey-10);
+    border-radius: var(--radius);
+    border-color: transparent;
+    padding: 0.25rem;
   }
 `;
 
