@@ -1,6 +1,12 @@
 import styled from 'styled-components';
+import { useFilterContext } from '../context/filter_context';
 
 const Filters = () => {
+  const {
+    filters: { text },
+    updateFilters,
+  } = useFilterContext();
+
   return (
     <Wrapper>
       <div>
@@ -12,6 +18,8 @@ const Filters = () => {
               name="text"
               placeholder="search"
               className="search-input"
+              value={text}
+              onChange={updateFilters}
             />
           </div>
           {/* search input end */}

@@ -3,6 +3,7 @@ import {
   SET_GRIDVIEW,
   SET_LISTVIEW,
   SORT_PRODUCTS,
+  UPDATE_FILTERS,
   UPDATE_SORT,
 } from '../actions';
 
@@ -70,6 +71,11 @@ const filter_reducer = (state, { type, payload }) => {
       }
 
       return { ...state, filtered_products: tempProducts };
+    }
+
+    case UPDATE_FILTERS: {
+      const { name, value } = payload;
+      return { ...state, filters: { ...state.filters, [name]: value } };
     }
 
     default: {

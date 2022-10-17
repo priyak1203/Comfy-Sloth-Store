@@ -4,6 +4,7 @@ import {
   SET_GRIDVIEW,
   SET_LISTVIEW,
   SORT_PRODUCTS,
+  UPDATE_FILTERS,
   UPDATE_SORT,
 } from '../actions';
 import reducer from '../reducers/filter_reducer';
@@ -52,9 +53,16 @@ export const FilterProvider = ({ children }) => {
     dispatch({ type: UPDATE_SORT, payload: e.target.value });
   };
 
+  const updateFilters = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
+  };
+
   return (
     <FilterContext.Provider
-      value={{ ...state, setGridView, setListView, updateSort }}
+      value={{ ...state, setGridView, setListView, updateSort, updateFilters }}
     >
       {children}
     </FilterContext.Provider>
