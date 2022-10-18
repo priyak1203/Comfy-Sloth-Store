@@ -1,6 +1,7 @@
 import React, { useReducer, useContext, useEffect } from 'react';
 import {
   CLEAR_FILTERS,
+  FILTER_PRODUCTS,
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
   SET_LISTVIEW,
@@ -39,8 +40,9 @@ export const FilterProvider = ({ children }) => {
   }, [products]);
 
   useEffect(() => {
+    dispatch({ type: FILTER_PRODUCTS });
     dispatch({ type: SORT_PRODUCTS });
-  }, [products, state.sort]);
+  }, [products, state.sort, state.filters]);
 
   const setGridView = () => {
     dispatch({ type: SET_GRIDVIEW });

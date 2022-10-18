@@ -1,5 +1,6 @@
 import {
   CLEAR_FILTERS,
+  FILTER_PRODUCTS,
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
   SET_LISTVIEW,
@@ -77,6 +78,20 @@ const filter_reducer = (state, { type, payload }) => {
     case UPDATE_FILTERS: {
       const { name, value } = payload;
       return { ...state, filters: { ...state.filters, [name]: value } };
+    }
+
+    case FILTER_PRODUCTS: {
+      const { all_products } = state;
+      const { text } = state.filters;
+
+      let tempProducts = [...all_products];
+
+      if (text) {
+        tempProducts = tempProducts.filter((product) =>
+          product.name.toLowerCase().startsWith(text)
+        );
+      }
+      return { ...state, filtered_products: tempProducts };
     }
 
     case CLEAR_FILTERS: {
