@@ -1,5 +1,6 @@
 import React, { useReducer, useContext, useEffect } from 'react';
 import {
+  CLEAR_FILTERS,
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
   SET_LISTVIEW,
@@ -69,12 +70,27 @@ export const FilterProvider = ({ children }) => {
       value = Number(value);
     }
 
+    if (name === 'shipping') {
+      value = e.target.checked;
+    }
+
     dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
+  };
+
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
   };
 
   return (
     <FilterContext.Provider
-      value={{ ...state, setGridView, setListView, updateSort, updateFilters }}
+      value={{
+        ...state,
+        setGridView,
+        setListView,
+        updateSort,
+        updateFilters,
+        clearFilters,
+      }}
     >
       {children}
     </FilterContext.Provider>

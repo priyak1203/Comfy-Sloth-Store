@@ -1,4 +1,5 @@
 import {
+  CLEAR_FILTERS,
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
   SET_LISTVIEW,
@@ -76,6 +77,21 @@ const filter_reducer = (state, { type, payload }) => {
     case UPDATE_FILTERS: {
       const { name, value } = payload;
       return { ...state, filters: { ...state.filters, [name]: value } };
+    }
+
+    case CLEAR_FILTERS: {
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          text: '',
+          category: 'all',
+          company: 'all',
+          color: 'all',
+          price: state.filters.max_price,
+          shipping: false,
+        },
+      };
     }
 
     default: {

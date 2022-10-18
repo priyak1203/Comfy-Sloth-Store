@@ -5,9 +5,19 @@ import { formatPrice, getUniqueValues } from '../utils/helpers';
 
 const Filters = () => {
   const {
-    filters: { text, category, company, color, min_price, max_price, price },
+    filters: {
+      text,
+      category,
+      company,
+      color,
+      min_price,
+      max_price,
+      price,
+      shipping,
+    },
     all_products,
     updateFilters,
+    clearFilters,
   } = useFilterContext();
 
   const categories = getUniqueValues(all_products, 'category');
@@ -16,7 +26,7 @@ const Filters = () => {
 
   return (
     <Wrapper>
-      <div>
+      <div className="content">
         <form onSubmit={(e) => e.preventDefault()}>
           {/* search input start */}
           <div className="form-control">
@@ -123,7 +133,22 @@ const Filters = () => {
             />
           </div>
           {/* price end */}
+          {/* shipping start */}
+          <div className="form-control shipping">
+            <label htmlFor="shipping">free shipping</label>
+            <input
+              type="checkbox"
+              id="shipping"
+              name="shipping"
+              checked={shipping}
+              onChange={updateFilters}
+            />
+          </div>
+          {/* shipping end */}
         </form>
+        <button type="button" className="clear-btn" onClick={clearFilters}>
+          clear filters
+        </button>
       </div>
     </Wrapper>
   );
@@ -211,6 +236,28 @@ const Wrapper = styled.section`
 
   .price {
     margin-bottom: 0.25rem;
+  }
+  .shipping {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    text-transform: capitalize;
+    column-gap: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .clear-btn {
+    background: var(--clr-red-dark);
+    color: var(--clr-white);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius);
+  }
+
+  @media (min-width: 768px) {
+    .content {
+      position: sticky;
+      top: 1rem;
+    }
   }
 `;
 
