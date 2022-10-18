@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { FaCheck } from 'react-icons/fa';
 import { useFilterContext } from '../context/filter_context';
-import { getUniqueValues } from '../utils/helpers';
+import { formatPrice, getUniqueValues } from '../utils/helpers';
 
 const Filters = () => {
   const {
-    filters: { text, category, company, color },
+    filters: { text, category, company, color, min_price, max_price, price },
     all_products,
     updateFilters,
   } = useFilterContext();
@@ -109,6 +109,20 @@ const Filters = () => {
             </div>
           </div>
           {/* colors end */}
+          {/* price start */}
+          <div className="form-control">
+            <h5>price</h5>
+            <p className="price">{formatPrice(price)}</p>
+            <input
+              type="range"
+              name="price"
+              min={min_price}
+              max={max_price}
+              value={price}
+              onChange={updateFilters}
+            />
+          </div>
+          {/* price end */}
         </form>
       </div>
     </Wrapper>
@@ -193,6 +207,10 @@ const Wrapper = styled.section`
 
   .active {
     opacity: 1;
+  }
+
+  .price {
+    margin-bottom: 0.25rem;
   }
 `;
 
