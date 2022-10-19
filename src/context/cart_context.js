@@ -16,7 +16,6 @@ const CartProvider = ({ children }) => {
 
   // add to cart
   const addToCart = (id, color, amount, product) => {
-    console.log({ id, amount, color, product });
     dispatch({ type: ADD_TO_CART, payload: { id, amount, color, product } });
   };
 
