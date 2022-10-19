@@ -1,5 +1,16 @@
+import styled from 'styled-components';
+import { CartContent, PageHero } from '../components';
+
 const CartPage = () => {
-  return <h2>CartPage</h2>;
+  return (
+    <Wrapper>
+      <PageHero title="cart" />
+      <CartContent />
+    </Wrapper>
+  );
 };
 
+const Wrapper = styled.main`
+  background-color: pink;
+`;
 export default CartPage;
