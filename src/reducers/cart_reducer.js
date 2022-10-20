@@ -1,4 +1,4 @@
-import { ADD_TO_CART } from '../actions';
+import { ADD_TO_CART, CLEAR_CART, REMOVE_CART_ITEM } from '../actions';
 
 const cart_reducer = (state, { type, payload }) => {
   switch (type) {
@@ -30,6 +30,15 @@ const cart_reducer = (state, { type, payload }) => {
         };
         return { ...state, cart: [...state.cart, newItem] };
       }
+    }
+
+    case REMOVE_CART_ITEM: {
+      const tempCart = state.cart.filter((cartItem) => cartItem.id !== payload);
+      return { ...state, cart: tempCart };
+    }
+
+    case CLEAR_CART: {
+      return { ...state, cart: [] };
     }
 
     default: {

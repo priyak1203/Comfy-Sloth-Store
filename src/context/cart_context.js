@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useReducer } from 'react';
-import { ADD_TO_CART } from '../actions';
+import { ADD_TO_CART, CLEAR_CART, REMOVE_CART_ITEM } from '../actions';
 import reducer from '../reducers/cart_reducer';
 
 const getLocalStorage = () => {
@@ -27,8 +27,20 @@ const CartProvider = ({ children }) => {
     dispatch({ type: ADD_TO_CART, payload: { id, amount, color, product } });
   };
 
+  // remove item
+  const removeItem = (id) => {
+    dispatch({ type: REMOVE_CART_ITEM, payload: id });
+  };
+
+  // clear cart
+  const clearCart = () => {
+    dispatch({ type: CLEAR_CART });
+  };
+
   return (
-    <CartContext.Provider value={{ ...state, addToCart }}>
+    <CartContext.Provider
+      value={{ ...state, addToCart, removeItem, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );
