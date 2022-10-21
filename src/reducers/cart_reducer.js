@@ -1,6 +1,7 @@
 import {
   ADD_TO_CART,
   CLEAR_CART,
+  COUNT_CART_TOTALS,
   REMOVE_CART_ITEM,
   TOGGLE_CART_ITEM_AMOUNT,
 } from '../actions';
@@ -69,6 +70,18 @@ const cart_reducer = (state, { type, payload }) => {
         return item;
       });
       return { ...state, cart: tempCart };
+    }
+
+    case COUNT_CART_TOTALS: {
+      const { total_items, total_amount } = state.cart.reduce(
+        (total, item) => {
+          total.total_items += item.amount;
+          total.total_amount += item.amount * item.price;
+          return total;
+        },
+        { total_amount: 0, total_items: 0 }
+      );
+      return { ...state, total_items, total_amount };
     }
 
     default: {
