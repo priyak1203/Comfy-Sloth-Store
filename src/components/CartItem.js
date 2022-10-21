@@ -5,10 +5,14 @@ import { formatPrice } from '../utils/helpers';
 import AmountButtons from './AmountButtons';
 
 const CartItem = ({ image, name, color, amount, price, id }) => {
-  const { removeItem } = useCartContext();
-  const increase = () => {};
+  const { removeItem, toggleAmount } = useCartContext();
+  const increase = () => {
+    toggleAmount('inc', id);
+  };
 
-  const decrease = () => {};
+  const decrease = () => {
+    toggleAmount('dec', id);
+  };
 
   return (
     <Wrapper>
