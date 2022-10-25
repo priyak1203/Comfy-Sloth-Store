@@ -5,10 +5,12 @@ import logo from '../assets/logo.svg';
 import { links } from '../utils/constants';
 import CartButtons from './CartButtons';
 import { useProductsContext } from '../context/products_context';
+import { useUserContext } from '../context/user_context';
 
 const Sidebar = () => {
   const { isSidebarOpen, closeSidebar } = useProductsContext();
-  const myUser = true;
+  const { myUser } = useUserContext();
+
   return (
     <Wrapper>
       <aside
