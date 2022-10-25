@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useCartContext } from '../context/cart_context';
 import { useProductsContext } from '../context/products_context';
+import { useUserContext } from '../context/user_context';
 
 const CartButtons = () => {
   const myUser = false;
+  const { loginWithRedirect, logout } = useUserContext();
   const { closeSidebar } = useProductsContext();
   const { total_items } = useCartContext();
   return (
@@ -16,7 +18,7 @@ const CartButtons = () => {
           <FaShoppingCart /> <span className="cart-value">{total_items}</span>
         </span>
       </Link>
-      {myUser ? (
+      {/* {myUser ? (
         <button type="button" className="auth-btn">
           logout <FaUserMinus />
         </button>
@@ -24,7 +26,17 @@ const CartButtons = () => {
         <button type="button" className="auth-btn">
           Login <FaUserPlus />
         </button>
-      )}
+      )} */}
+      <button type="button" className="auth-btn" onClick={loginWithRedirect}>
+        Login <FaUserPlus />
+      </button>
+      <button
+        type="button"
+        className="auth-btn"
+        onClick={() => logout({ returnTo: window.location.origin })}
+      >
+        logout <FaUserMinus />
+      </button>
     </Wrapper>
   );
 };

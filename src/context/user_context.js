@@ -12,6 +12,11 @@ const UserProvider = ({ children }) => {
     console.log(`User : ${user}`);
     console.log(`isAuthenticaticated : ${isAuthenticated}`);
     console.log(`isLoading : ${isLoading}`);
+    if (isAuthenticated) {
+      setMyUser(true);
+    } else {
+      setMyUser(false);
+    }
   }, [isAuthenticated]);
 
   return (
