@@ -5,16 +5,27 @@ import App from './App';
 import { ProductsProvider } from './context/products_context';
 import { FilterProvider } from './context/filter_context';
 import { CartProvider } from './context/cart_context';
+import { Auth0Provider } from '@auth0/auth0-react';
+
+const Domain = `${process.env.REACT_APP_DOMAIN}`;
+const ClientId = `${process.env.REACT_APP_CLIENT_ID}`;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ProductsProvider>
-      <FilterProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </FilterProvider>
-    </ProductsProvider>
+    <Auth0Provider
+      domain={Domain}
+      clientId={ClientId}
+      redirectUri={window.location.origin}
+      cacheLocation="localstorage"
+    >
+      <ProductsProvider>
+        <FilterProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </FilterProvider>
+      </ProductsProvider>
+    </Auth0Provider>
   </React.StrictMode>
 );
