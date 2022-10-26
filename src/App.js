@@ -6,6 +6,7 @@ import {
   Checkout,
   Error,
   Home,
+  PrivateRoute,
   Products,
   SingleProduct,
 } from './pages';
@@ -21,7 +22,14 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="products" element={<Products />} />
           <Route path="products/:id" element={<SingleProduct />} />
-          <Route path="checkout" element={<Checkout />} />
+          <Route
+            path="checkout"
+            element={
+              <PrivateRoute>
+                <Checkout />
+              </PrivateRoute>
+            }
+          />
           <Route path="cart" element={<Cart />} />
           <Route path="*" element={<Error />} />
         </Routes>
