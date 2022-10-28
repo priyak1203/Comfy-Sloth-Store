@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Footer, Navbar, Sidebar } from './components';
 import {
   About,
+  AuthWrapper,
   Cart,
   Checkout,
   Error,
@@ -13,7 +14,7 @@ import {
 
 function App() {
   return (
-    <>
+    <AuthWrapper>
       <Router>
         <Navbar />
         <Sidebar />
@@ -35,7 +36,7 @@ function App() {
         </Routes>
       </Router>
       <Footer />
-    </>
+    </AuthWrapper>
   );
 }
 
