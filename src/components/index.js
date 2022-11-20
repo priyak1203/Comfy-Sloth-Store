@@ -15,6 +15,7 @@ import Services from './Services';
 import Sidebar from './Sidebar';
 import Sort from './Sort';
 import Stars from './Stars';
+import StripeCheckout from './StripeCheckout';
 
 export {
   AddToCart,
@@ -34,4 +35,5 @@ export {
   Sidebar,
   Sort,
   Stars,
+  StripeCheckout,
 };
