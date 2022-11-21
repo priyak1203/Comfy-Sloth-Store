@@ -8,8 +8,8 @@ import { CartProvider } from './context/cart_context';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { UserProvider } from './context/user_context';
 
-const Domain = `${process.env.REACT_APP_DOMAIN}`;
-const ClientId = `${process.env.REACT_APP_CLIENT_ID}`;
+const Domain = `${process.env.REACT_APP_AUTH_DOMAIN}`;
+const ClientId = `${process.env.REACT_APP_AUTH_CLIENT_ID}`;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
