@@ -2,17 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { CardElement, Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useCartContext } from '../context/cart_context';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
+  const { cart, shipping_fee, total_amount } = useCartContext();
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
   const [disabled, setDisabled] = useState(true);
 
-  const createPaymentIntent = () => {
-    console.log('Hello From Stripe checkout');
+  const createPaymentIntent = async () => {
+    try {
+      const data = await axios.post(
+        '/.netlify/functions/create-payment-intent',
+        JSON.stringify({ cart, shipping_fee, total_amount })
+      );
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -31,17 +39,18 @@ const CheckoutForm = () => {
         },
       },
       invalid: {
+        fontFamily: 'Arial, sans-serif',
         color: '#fa755a',
         iconColor: '#fa755a',
       },
     },
   };
 
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     console.log('handleChange');
   };
 
-  const handleSubmit = (ev) => {
+  const handleSubmit = async (ev) => {
     console.log('handleSubmit');
   };
 
@@ -59,7 +68,11 @@ const CheckoutForm = () => {
           </span>
         </button>
         {/* Show any error that happens when processing the payment */}
-        {error && <div className="card-error">{error}</div>}
+        {error && (
+          <div className="card-error" role="alert">
+            {error}
+          </div>
+        )}
         {/* Show a success message upon completion */}
         <p className={succeeded ? 'result-message' : 'result-message hidden'}>
           Payment succeeded, see the result in your
@@ -69,7 +82,7 @@ const CheckoutForm = () => {
           >
             Stripe dashboard.
           </a>
-          Refresh the page to pay again
+          Refresh the page to pay again.
         </p>
       </form>
     </div>
@@ -88,7 +101,7 @@ const StripeCheckout = () => {
 
 const Wrapper = styled.section`
   form {
-    width: 30vw;
+    width: 40vw;
     align-self: center;
     box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
       0px 2px 5px 0px rgba(50, 50, 93, 0.1),
