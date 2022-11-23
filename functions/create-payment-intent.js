@@ -5,14 +5,29 @@ console.log(process.env.Test_Key);
 
 exports.handler = async function (event, context) {
   if (event.body) {
-    const { cart, shipping_fee, total_amount, name } = JSON.parse(event.body);
+    const { cart, shipping_fee, total_amount } = JSON.parse(event.body);
 
     const calculateOrderAmount = () => shipping_fee + total_amount;
 
     try {
+      // const paymentIntent = await stripe.paymentIntents.create({
+      //   amount: calculateOrderAmount(),
+      //   currency: 'inr',
+      // });
       const paymentIntent = await stripe.paymentIntents.create({
         amount: calculateOrderAmount(),
-        currency: 'inr',
+        currency: 'usd',
+        description: 'Comfy Sloth Store Payments',
+        shipping: {
+          name: 'Jake Smith',
+          address: {
+            line1: '510 Townsend St',
+            postal_code: '98140',
+            city: 'San Francisco',
+            state: 'CA',
+            country: 'US',
+          },
+        },
       });
       return {
         statusCode: 200,
