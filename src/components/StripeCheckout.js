@@ -1,19 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { CardElement, Elements } from '@stripe/react-stripe-js';
+import {
+  CardElement,
+  Elements,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useCartContext } from '../context/cart_context';
+import { formatPrice } from '../utils/helpers';
+import { useUserContext } from '../context/user_context';
+import { useNavigate } from 'react-router-dom';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const CheckoutForm = () => {
-  const { cart, shipping_fee, total_amount } = useCartContext();
+  const { cart, shipping_fee, total_amount, clearCart } = useCartContext();
+  const { myUser } = useUserContext();
+  const navigate = useNavigate();
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [clientSecret, setClientSecret] = useState('');
+  const stripe = useStripe();
+  const elements = useElements();
 
   const createPaymentIntent = async () => {
     try {
@@ -21,10 +33,10 @@ const CheckoutForm = () => {
         '/.netlify/functions/create-payment-intent',
         JSON.stringify({ cart, shipping_fee, total_amount })
       );
-      console.log(data.clientSecret);
+
       setClientSecret(data.clientSecret);
     } catch (error) {
-      console.log(error.response);
+      // console.log(error.response);
     }
   };
 
@@ -52,15 +64,52 @@ const CheckoutForm = () => {
   };
 
   const handleChange = async (event) => {
-    console.log('handleChange');
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : '');
   };
 
   const handleSubmit = async (ev) => {
-    console.log('handleSubmit');
+    ev.preventDefault();
+    setProcessing(true);
+
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
+
+    console.log(payload);
+
+    if (payload.error) {
+      setError(`Payment failed ${payload.error.message}`);
+      setProcessing(false);
+    } else {
+      setError(null);
+      setProcessing(false);
+      setSucceeded(true);
+      setTimeout(() => {
+        clearCart();
+        navigate('/');
+      }, 5000);
+    }
   };
 
   return (
     <div>
+      {succeeded ? (
+        <article>
+          <h4>thank you</h4>
+          <h4>your payment was successful!</h4>
+          <h4>Redirecting to home page shortly</h4>
+        </article>
+      ) : (
+        <article>
+          <h4>hello, {myUser && myUser.name} </h4>
+          <p>Your total is {formatPrice(total_amount + shipping_fee)} </p>
+
+          <p>Test Card Number: 4242 4242 4242 4242</p>
+        </article>
+      )}
       <form id="payment-form" onSubmit={handleSubmit}>
         <CardElement
           id="card-element"
@@ -143,6 +192,9 @@ const Wrapper = styled.section`
     line-height: 20px;
     margin-top: 12px;
     text-align: center;
+  }
+  .card-error {
+    color: #ea0000;
   }
   #card-element {
     border-radius: 4px 4px 0 0;
