@@ -23,6 +23,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="products" element={<Products />} />
           <Route path="products/:id" element={<SingleProduct />} />
+          <Route path="cart" element={<Cart />} />
           <Route
             path="checkout"
             element={
@@ -31,7 +32,6 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="cart" element={<Cart />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>
