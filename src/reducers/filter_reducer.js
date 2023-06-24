@@ -143,7 +143,7 @@ const filter_reducer = (state, { type, payload }) => {
     }
 
     default: {
-      throw new Error(`No matching "${action.type}" - action type`);
+      throw new Error(`No matching "${type}" - action type`);
     }
   }
 };
