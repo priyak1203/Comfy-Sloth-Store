@@ -19,6 +19,8 @@ const CheckoutForm = () => {
   const { cart, shipping_fee, total_amount, clearCart } = useCartContext();
   const { myUser } = useUserContext();
   const navigate = useNavigate();
+
+  // Stripe related
   const [succeeded, setSucceeded] = useState(false);
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState('');
