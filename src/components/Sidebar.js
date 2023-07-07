@@ -47,7 +47,6 @@ const Sidebar = () => {
 };
 
 const Wrapper = styled.div`
-  background-color: peachpuff;
   text-align: center;
 
   .sidebar-header {
